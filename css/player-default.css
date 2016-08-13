@@ -1,0 +1,239 @@
+.vplayer-wrapper #vplayer {
+    float: left;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+.vplayer-wrapper {
+    position: relative;
+    overflow: auto;
+    margin: 0 auto;
+    overflow: hidden;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.vplayer-wrapper:fullscreen {
+    width: 100% !important;
+    height: 100%;
+    background: #000;
+}
+
+.vplayer-controls-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #969696;
+    height: 35px;
+    line-height: 35px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-out;
+    z-index: 3;
+}
+.vplayer-control-item {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    float: left;
+    position: relative;
+}
+.vplayer-control-item.play {
+    background-image: url(icons/play.png);
+    background-size: 100% 100%;
+}
+
+.vplayer-control-item.pause {
+    background-image: url(icons/pause.png);
+    background-size: 100% 100%;
+}
+
+
+.vplayer-control-item.time_counter {
+    width: 60px;
+    line-height: 35px;
+    text-align: center;
+}
+
+.vplayer-control-item.vtime {
+    width: 60px;
+    line-height: 35px;
+    text-align: center;
+}
+
+.vplayer-control-item.vprogressbar {
+    width: calc(100% - 227px) !important;
+    position: relative;
+    height: 20px;
+    margin-top: 7.5px;
+    display: inline-block;
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+}
+
+.vplayer-control-item.vprogressbar .vprogressline {
+    background: #b4b4b4;
+    height: 100%;
+    width: 0;
+    transition: width 0.2s linear;
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    height: 100% !important;
+}
+.vplayer-control-item.vprogressbar .vprogressbuffer {
+    position: absolute;
+    background: #8c8c8c;
+    z-index: 1;
+    height: 100% !important;
+}
+
+
+.vplayer-control-item.sound {
+    background: url(icons/sound.png) no-repeat center;
+    background-size: 70% 70%;
+}
+
+
+.vplayer-control-item.sound.muted {
+    background: url(icons/sound-muted.png) no-repeat center;
+    background-size: 70% 70%;
+}
+
+.vplayer-control-item.full-screen {
+    background: url(icons/fullscreen.png) no-repeat center;
+    background-size: 58% 58% !important;
+}
+
+
+.vplayer-wrapper:-webkit-full-screen {
+    width: 100% !important;
+    height: 100%;
+    background: #000;
+}
+
+.vplayer-wrapper:-webkit-full-screen .vplayer-control-item.full-screen {
+    background: url(icons/exit-fullscreen.png) no-repeat center;
+}
+
+.vplayer-wrapper:-moz-full-screen {
+    width: 100% !important;
+    height: 100%;
+    background: #000;
+}
+
+.vplayer-wrapper:-moz-full-screen .vplayer-control-item.full-screen {
+    background: url(icons/exit-fullscreen.png) no-repeat center;
+}
+
+.vplayer-wrapper:-ms-fullscreen {
+    width: 100% !important;
+    height: 100%;
+    background: #000;
+}
+
+.vplayer-wrapper:-ms-fullscreen .vplayer-control-item.full-screen {
+    background: url(icons/exit-fullscreen.png) no-repeat center;
+}
+
+
+
+.vplayer-wrapper:full-screen {
+        width: 100% !important;
+        height: 100%;
+        background: #000;
+}
+
+.vplayer-wrapper:full-screen .vplayer-control-item.full-screen {
+    background: url(icons/exit-fullscreen.png) no-repeat center;
+}
+
+.vplayer-popup {
+    position: absolute;
+    bottom: 40px;
+    background: #969696;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s linear,visibility 0.2s linear;
+    display: block;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(0,0,0,0.5);
+    height: auto;
+    line-height: initial;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.vplayer-popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+.vplayer-popup:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -10px;
+    width: 1px;
+    height: 1px;
+    border: 10px solid transparent;
+    border-top-color: #AAA;
+    bottom: -21px;
+}
+
+.vplayer-popup.volume {
+    border-radius: 0;
+    width: 20px;
+    bottom: 45px;
+    left: -5px;
+    height: 100px;
+}
+.sound-line-wrapper {
+    position: absolute;
+    height: calc(100% - 20px);
+    width: 50%;
+    bottom: 10px;
+    border: 1px solid #888;
+}
+.sound-line {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: #999;
+}
+.big-icon {
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    z-index: 2;
+    cursor: pointer;
+    transform: scale(0.3);
+    opacity: 0.9;
+}
+.big-icon.play {
+    background: url('icons/play-big.png') no-repeat center;
+    visibility: visible;
+    transform: scale(0.4);
+    opacity: 0;
+}
+.big-icon.pause {
+    background: url('icons/pause-big.png') no-repeat center;
+    visibility: visible;
+    transform: scale(0.4);
+    opacity: 0;
+}
+.big-icon.loading {
+    transition: none;
+    background: url('https://d13yacurqjgara.cloudfront.net/users/82092/screenshots/1073359/spinner.gif') no-repeat center;
+    visibility: visible;
+    transform: scale(0.3);
+    opacity: 0.9;
+}
