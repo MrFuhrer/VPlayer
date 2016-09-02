@@ -8,18 +8,23 @@
 }
 .vplayer-wrapper {
     position: relative;
-    overflow: auto;
     margin: 0 auto;
     overflow: hidden;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+    background: #000;
+    width: 100%;
+    height: 100%;
+}
+.vplayer-wrapper:focus {
+    outline: none;
 }
 
 .vplayer-wrapper:fullscreen {
     width: 100% !important;
-    height: 100%;
+    height: 100% !important;
     background: #000;
 }
 
@@ -42,7 +47,9 @@
     height: 35px;
     cursor: pointer;
     float: left;
+    border-right: 1px solid rgba(0,0,0,0.05);
     position: relative;
+    text-transform: uppercase;
 }
 .vplayer-control-item.play {
     background-image: url(icons/play.png);
@@ -56,9 +63,11 @@
 
 
 .vplayer-control-item.time_counter {
-    width: 60px;
+    width: 150px;
     line-height: 35px;
-    text-align: center;
+    text-align: left;
+    padding-left: 10px;
+    border: none;
 }
 
 .vplayer-control-item.vtime {
@@ -68,24 +77,28 @@
 }
 
 .vplayer-control-item.vprogressbar {
-    width: calc(100% - 227px) !important;
-    position: relative;
-    height: 20px;
-    margin-top: 7.5px;
+    width: 100%;
+    position: absolute;
+    height: 7px;
     display: inline-block;
-    border-left: 1px solid #888;
-    border-right: 1px solid #888;
+    bottom: 35px;
+    left: 0;
+    background: #555;
+    z-index: 3;
+    transition: height 0.2s linear;
+}
+.vplayer-control-item.vprogressbar:hover {
+    height: 20px;
 }
 
 .vplayer-control-item.vprogressbar .vprogressline {
-    background: #b4b4b4;
+    background: #A00;
     height: 100%;
     width: 0;
     transition: width 0.2s linear;
     position: absolute;
     left: 0;
     z-index: 2;
-    height: 100% !important;
 }
 .vplayer-control-item.vprogressbar .vprogressbuffer {
     position: absolute;
@@ -94,10 +107,18 @@
     height: 100% !important;
 }
 
+.vplayer-control-item.episodes {
+    width: auto;
+    text-align: center;
+    margin-right: 10px;
+    float: right;
+    padding: 0 5px;
+}
 
 .vplayer-control-item.sound {
     background: url(icons/sound.png) no-repeat center;
     background-size: 70% 70%;
+    float: right;
 }
 
 
@@ -109,12 +130,13 @@
 .vplayer-control-item.full-screen {
     background: url(icons/fullscreen.png) no-repeat center;
     background-size: 58% 58% !important;
+    float: right;
 }
 
 
 .vplayer-wrapper:-webkit-full-screen {
     width: 100% !important;
-    height: 100%;
+    height: 100% !important;
     background: #000;
 }
 
@@ -124,7 +146,7 @@
 
 .vplayer-wrapper:-moz-full-screen {
     width: 100% !important;
-    height: 100%;
+    height: 100% !important;
     background: #000;
 }
 
@@ -134,7 +156,7 @@
 
 .vplayer-wrapper:-ms-fullscreen {
     width: 100% !important;
-    height: 100%;
+    height: 100% !important;
     background: #000;
 }
 
@@ -142,14 +164,14 @@
     background: url(icons/exit-fullscreen.png) no-repeat center;
 }
 
-
-
+/*noinspection CssInvalidPseudoSelector*/
 .vplayer-wrapper:full-screen {
-        width: 100% !important;
-        height: 100%;
-        background: #000;
+    width: 100% !important;
+    height: 100% !important;
+    background: #000;
 }
 
+/*noinspection CssInvalidPseudoSelector*/
 .vplayer-wrapper:full-screen .vplayer-control-item.full-screen {
     background: url(icons/exit-fullscreen.png) no-repeat center;
 }
@@ -169,7 +191,7 @@
     padding: 5px 10px;
     border-radius: 5px;
 }
-.vplayer-popup.show {
+.vplayer-control-item:hover .vplayer-popup {
     opacity: 1;
     visibility: visible;
 }
@@ -192,6 +214,10 @@
     bottom: 45px;
     left: -5px;
     height: 100px;
+    z-index: 5;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 .sound-line-wrapper {
     position: absolute;
@@ -207,6 +233,37 @@
     height: 100%;
     background: #999;
 }
+
+
+.vplayer-control-item.qualities-button,.vplayer-control-item.languages-button {
+    float: right;
+    text-align: center;
+    width: 45px;
+}
+
+.vplayer-popup.languages-list, .vplayer-popup.qualities-list {
+    border-radius: 0;
+    bottom: 40px;
+    width: 45px;
+    padding: 0;
+    z-index: 5;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.vplayer-popup .language-list-item, .vplayer-popup .quality-list-item {
+    color: #000;
+    text-decoration: none;
+    display: block;
+    padding: 5px 7px;
+}
+.vplayer-popup .language-list-item:hover, .vplayer-popup .quality-list-item:hover {
+    background: rgba(0,0,0,0.2);
+}
+
+
 .big-icon {
     visibility: hidden;
     position: absolute;
@@ -232,8 +289,175 @@
 }
 .big-icon.loading {
     transition: none;
-    background: url('https://d13yacurqjgara.cloudfront.net/users/82092/screenshots/1073359/spinner.gif') no-repeat center;
+    /*background: url('https://d13yacurqjgara.cloudfront.net/users/82092/screenshots/1073359/spinner.gif') no-repeat center;*/
     visibility: visible;
-    transform: scale(0.3);
-    opacity: 0.9;
+    transform: scale(1);
+    opacity: 1;
+}
+.big-icon #loading {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -75px;
+    margin-left: -75px;
+    width: 150px;
+    height: 150px;
+}
+
+.big-icon.loading #loading{
+    display: block;
+}
+.big-icon.loading #loading #gloading {
+    background: rgba(0,0,0,0.3);
+}
+.vplayer-popup.time-popup {
+    bottom: 17px;
+}
+.vprogressbar:hover .time-popup {
+    bottom: 30px;
+}
+.vplayer-wrapper .episodes-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 35px);
+    background: rgba(0,0,0,0.8);
+    z-index: 2;
+    color: #FFF;
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.vplayer-wrapper .episodes-wrapper .tabs-wrapper {
+    width: calc(100% - 10px);
+    background: rgba(255,255,255,0.3);
+    overflow: auto;
+}
+
+.vplayer-wrapper .episodes-wrapper .tabs-wrapper .title {
+    float: left;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.vplayer-wrapper .episodes-wrapper .tabs-wrapper .tab-item {
+    padding: 5px 10px;
+    background: #555;
+    cursor: pointer;
+    float: left;
+    margin-right: 5px;
+}
+.vplayer-wrapper .episodes-wrapper .tabs-wrapper .tab-item:hover, .vplayer-wrapper .episodes-wrapper .tabs-wrapper .tab-item.active {
+    background: #333;
+}
+
+.vplayer-wrapper .episodes-wrapper .seasons-wrapper {
+    overflow: auto;
+    margin-top: 20px;
+}
+
+.vplayer-wrapper .episodes-wrapper .seasons-wrapper .episodes {
+    overflow: auto;
+}
+
+.vplayer-wrapper .episodes-wrapper .seasons-wrapper .episodes > div {
+    float: left;
+    width: 150px;
+    padding: 10px;
+    background: rgba(255,255,255,0.3);
+    margin: 10px;
+    cursor: pointer;
+}
+
+.vplayer-wrapper .episodes-wrapper .seasons-wrapper .episodes > div:hover,.vplayer-wrapper .episodes-wrapper .seasons-wrapper .episodes > div.active {
+    background: rgba(255,255,255,0.5);
+}
+.vplayer-wrapper .hidden {
+    display: none;
+}
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+#gloading {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#gloader {
+    float: left;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -50%;
+    margin-top: -50%;
+    width: calc(100%);
+    height: calc(100%);
+    border-radius: 50%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 3px solid transparent;
+    border-top-color: #e85656;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+#gloader:after,#gloader:before {
+    content: "";
+    position: absolute;
+}
+
+#gloader:before {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #209e91;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+
+#gloader:after {
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #dfb81c;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
 }
