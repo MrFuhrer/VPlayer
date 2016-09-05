@@ -461,3 +461,6 @@
     -webkit-animation: spin 1.5s linear infinite;
     animation: spin 1.5s linear infinite;
 }
+.nocursor, .nocursor * {
+    cursor: none !important;
+}

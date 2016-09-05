@@ -670,6 +670,7 @@ var Player = function(l, options) {
     function showControls(autohide) {
         controlsWrapper.style.opacity = 1;
         controlsWrapper.style.visibility = 'visible';
+        videoWrapper.classList.remove('nocursor');
         if(_timeout) {
             clearTimeout(_timeout);
         }
@@ -677,6 +678,7 @@ var Player = function(l, options) {
             _timeout = setTimeout(function() {
                 controlsWrapper.style.opacity = 0;
                 controlsWrapper.style.visibility = 'hidden';
+                videoWrapper.classList.add('nocursor');
             },2000);
         }
     }
